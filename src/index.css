@@ -1541,3 +1541,96 @@ em { font-style: italic; font-weight: 700; color: var(--text); }
   background: var(--accent-soft);
 }
 
+/* ===== Card Action Buttons & Modal Top Bar ===== */
+.preview-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.preview-pill:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.card-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  width: 100%;
+}
+
+.action-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.action-preview {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.action-preview:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.action-visit {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 15px var(--accent-soft);
+}
+
+.action-visit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent);
+}
+
+.modal-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-actions-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.button-sm {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+

@@ -264,19 +264,29 @@ function App() {
         <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label={`${modalProject.name} preview`}>
           <div className="preview-modal">
             <div className="modal-bar">
-              <span>
+              <span className="modal-title">
                 <span className="status-dot" />
-                {modalProject.isFlagship ? 'Live Product Preview' : 'Creator Concept Preview'} · {modalProject.name}
+                {modalProject.isFlagship ? 'Live Product Preview' : 'Creator Concept Preview'} · <strong>{modalProject.name}</strong>
               </span>
-              <button onClick={() => setModalProject(null)} aria-label="Close preview">
-                <X size={20} />
-              </button>
+              <div className="modal-actions-top">
+                <a
+                  href={modalProject.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="button button-primary button-sm"
+                >
+                  Visit Live Site <ExternalLink size={14} />
+                </a>
+                <button onClick={() => setModalProject(null)} aria-label="Close preview">
+                  <X size={20} />
+                </button>
+              </div>
             </div>
             <iframe title={`${modalProject.name} live preview`} src={modalProject.url} />
             <div className="modal-footer">
-              <span>External website preview</span>
+              <span>Interactive website preview embedded above</span>
               <a href={modalProject.url} target="_blank" rel="noreferrer">
-                Open live link in new tab <ExternalLink size={14} />
+                Redirect to {modalProject.url} <ExternalLink size={14} />
               </a>
             </div>
           </div>
@@ -433,7 +443,7 @@ function WorkSection({ onPreview }: { onPreview: (project: Project) => void }) {
           eyebrow="SELECTED WORK &amp; CREATOR CONCEPTS"
           title="Good work gets"
           italic="remembered."
-          description="A selection of digital products and custom concepts shaped for creators and digital builders."
+          description="Click any project to view an interactive live preview or visit the site directly."
         />
 
         <div className="filter-bar">
@@ -462,19 +472,29 @@ function WorkSection({ onPreview }: { onPreview: (project: Project) => void }) {
             <article
               className={`project-card ${project.tone} ${project.isFlagship ? 'flagship-card' : ''}`}
               key={project.name}
-              onClick={() => onPreview(project)}
             >
-              <div className="project-visual">
+              <div className="project-visual" onClick={() => onPreview(project)}>
                 <span className="project-number">{project.number}</span>
                 {project.isFlagship && <span className="flagship-badge">FLAGSHIP SAAS</span>}
                 <div className="project-shape shape-one" />
                 <div className="project-shape shape-two" />
                 <div className="project-ui">
                   <span>{project.metric}</span>
-                  <span><Play size={12} fill="currentColor" /></span>
+                  <button
+                    className="preview-pill"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onPreview(project);
+                    }}
+                    title="Open Live Preview Modal"
+                  >
+                    <span>Preview</span>
+                    <Play size={12} fill="currentColor" />
+                  </button>
                 </div>
                 <div className="project-name-display">{project.name}</div>
               </div>
+
               <div className="project-info">
                 <div>
                   <div className="project-meta-row">
@@ -483,9 +503,28 @@ function WorkSection({ onPreview }: { onPreview: (project: Project) => void }) {
                   <h3>{project.name}</h3>
                   <p>{project.description}</p>
                 </div>
-                <button aria-label={`Preview ${project.name}`}>
-                  <MoveUpRight size={19} />
-                </button>
+
+                <div className="card-action-buttons">
+                  <button
+                    className="action-btn action-preview"
+                    onClick={() => onPreview(project)}
+                    title={`Live preview ${project.name}`}
+                  >
+                    <Play size={13} fill="currentColor" />
+                    <span>Live Preview</span>
+                  </button>
+
+                  <a
+                    className="action-btn action-visit"
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={`Redirect to ${project.name} website`}
+                  >
+                    <span>Visit Site</span>
+                    <MoveUpRight size={14} />
+                  </a>
+                </div>
               </div>
             </article>
           ))}
