@@ -285,7 +285,8 @@ function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }
       <div className="container hero-content">
         <div className="hero-copy">
           <div className="kicker">
-            <span className="kicker-line" /> Independent Digital Studio · Founded by Sonu M
+            <span className="status-pulse-dot" />
+            <span>Available for Select Projects &amp; Creator Portals · Founded by Sonu M</span>
           </div>
           <h1>
             Make your brand<br />
