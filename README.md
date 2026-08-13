@@ -1,8 +1,7 @@
 # Sorix Studio — Custom Web & Creator Experiences
 
 > **Independent Digital Studio founded by Sonu M**  
-> Crafting conversion-focused websites, flagship SaaS products, and custom 3D web experiences for ambitious creators and forward-thinking brands.  
-> 🌐 **Live Website**: [https://sorixstudio.online](https://sorixstudio.online)
+> Crafting conversion-focused websites, flagship SaaS products, and custom 3D web experiences for ambitious creators and forward-thinking brands.
 
 ---
 
@@ -15,15 +14,15 @@
 
 ## 🎨 Tailored Creator Concept Portals
 
-Sorix Studio creates bespoke, high-converting digital web concepts tailored specifically for major digital creators and media brands. Send these links directly to creators to showcase their custom pitch concept:
+Sorix Studio creates bespoke, high-converting digital web concepts tailored specifically for major digital creators and media brands:
 
-| Creator / Brand | Subscriber Reach | Direct Pitch Link |
+| Creator / Brand | Subscriber Reach | Pitch Preview Link |
 | :--- | :---: | :--- |
-| **Abhi & Niyu** | **5M+** | [https://sorixstudio.online/?id=abhi-and-niyu](https://sorixstudio.online/?id=abhi-and-niyu) |
-| **Total Gaming** | **30M+** | [https://sorixstudio.online/?id=total-gaming](https://sorixstudio.online/?id=total-gaming) |
-| **Gyan Therapy** | **1M+** | [https://sorixstudio.online/?id=gyan-therapy](https://sorixstudio.online/?id=gyan-therapy) |
-| **Vedant Rusty** | **Creator Hub** | [https://sorixstudio.online/?id=vedant-rusty](https://sorixstudio.online/?id=vedant-rusty) |
-| **Techbar Spotlight** | **Review Platform** | [https://sorixstudio.online/?id=techbar](https://sorixstudio.online/?id=techbar) |
+| **Abhi & Niyu** | **5M+** | `https://your-domain.com/?id=abhi-and-niyu` |
+| **Total Gaming** | **30M+** | `https://your-domain.com/?id=total-gaming` |
+| **Gyan Therapy** | **1M+** | `https://your-domain.com/?id=gyan-therapy` |
+| **Vedant Rusty** | **Creator Hub** | `https://your-domain.com/?id=vedant-rusty` |
+| **Techbar Spotlight** | **Review Platform** | `https://your-domain.com/?id=techbar` |
 
 ---
 
@@ -80,7 +79,6 @@ npm run build
 
 ## 📬 Contact & Connect
 
-- **Live Website**: [https://sorixstudio.online](https://sorixstudio.online)
 - **Founder & Lead Architect**: Sonu M
 - **Email**: [sorixm149@gmail.com](mailto:sorixm149@gmail.com)
 - **WhatsApp**: [+91 81520 44640](https://wa.me/918152044640)

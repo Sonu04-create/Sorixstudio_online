@@ -2,15 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDownRight,
   ArrowUpRight,
-  ArrowUpRight as ExternalLink,
+  ExternalLink,
   Check,
   ChevronDown,
+  Globe,
   Instagram,
   Mail,
   Menu,
-  MoveUpRight,
   Phone,
-  Play,
   Sparkles,
   X,
   Zap,
@@ -36,6 +35,7 @@ type Project = {
   type: string;
   description: string;
   url: string;
+  thumbnailUrl: string;
   tone: string;
   metric: string;
   isFlagship?: boolean;
@@ -47,8 +47,9 @@ const projects: Project[] = [
     number: '01',
     name: 'BrowserKit',
     type: 'SaaS / Utility Tool',
-    description: 'An all-in-one browser toolkit for modern creators and builders. Live product designed & architected by Sonu M.',
+    description: 'An all-in-one browser utility toolkit for modern creators & digital builders. Live product built by Sonu M.',
     url: 'https://browserkit.in/',
+    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fbrowserkit.in%2F?w=1280&h=800',
     tone: 'project-blue',
     metric: 'Live SaaS Product',
     isFlagship: true,
@@ -58,8 +59,9 @@ const projects: Project[] = [
     number: '02',
     name: 'Abhi & Niyu Hub',
     type: 'Creator Concept Hub',
-    description: 'A 3D knowledge & storytelling portal crafted for top digital creators with 5M+ subscribers.',
+    description: 'A 3D knowledge & storytelling digital portal crafted for top creators with 5M+ subscribers.',
     url: 'https://abhiandniyu.lovable.app/',
+    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fabhiandniyu.lovable.app%2F?w=1280&h=800',
     tone: 'project-sand',
     metric: '5M+ Subscribers',
     category: 'concept',
@@ -68,8 +70,9 @@ const projects: Project[] = [
     number: '03',
     name: 'Total Gaming Web',
     type: 'Gaming / Media Portal',
-    description: 'An immersive gaming & esports hub with real-time stream stats for 30M+ gaming fans.',
+    description: 'An immersive gaming & esports hub with live stream stats for 30M+ gaming fans.',
     url: 'https://totalgamingweb.lovable.app',
+    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Ftotalgamingweb.lovable.app?w=1280&h=800',
     tone: 'project-orange',
     metric: '30M+ Gamers',
     category: 'concept',
@@ -80,6 +83,7 @@ const projects: Project[] = [
     type: 'Tech & Education',
     description: 'Minimal, calming interface for tech reviews, buying guides, and educational content for 1M+ learners.',
     url: 'https://gyan-therapy-hub.lovable.app',
+    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fgyan-therapy-hub.lovable.app?w=1280&h=800',
     tone: 'project-green',
     metric: '1M+ Learners',
     category: 'concept',
@@ -90,6 +94,7 @@ const projects: Project[] = [
     type: 'Creator Portfolio',
     description: 'Bold, industrial-themed digital experience for podcasts, pop-culture essays, and media projects.',
     url: 'https://vedantrusty.lovable.app',
+    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fvedantrusty.lovable.app?w=1280&h=800',
     tone: 'project-red',
     metric: 'Creator Platform',
     category: 'concept',
@@ -100,6 +105,7 @@ const projects: Project[] = [
     type: 'Glassmorphic Review Hub',
     description: 'High-impact glassmorphic tech review spotlight with interactive unboxing stories.',
     url: 'https://techbar-spotlight-hub.lovable.app',
+    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Ftechbar-spotlight-hub.lovable.app?w=1280&h=800',
     tone: 'project-purple',
     metric: 'Review Platform',
     category: 'concept',
@@ -110,7 +116,7 @@ const fallbackLead: Lead = {
   category: 'High-performance digital experiences',
   businessName: 'Sorix Studio',
   city: 'Worldwide',
-  primaryColor: '#f04438',
+  primaryColor: '#ef4444',
   heroTitle: 'We build digital experiences that move at your speed.',
   heroSubtitle: 'Conversion-focused websites, SaaS products, and 3D web experiences for ambitious creators and brands.',
   ctaText: 'Start a conversation',
@@ -122,7 +128,6 @@ function App() {
   const [leads, setLeads] = useState<Leads>({});
   const [activeLead, setActiveLead] = useState<Lead | null>(null);
   const [activeSlug, setActiveSlug] = useState('');
-  const [modalProject, setModalProject] = useState<Project | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -164,16 +169,20 @@ function App() {
           <button onClick={() => scrollTo('contact')}>Talk to Sonu <ArrowUpRight size={14} /></button>
         </div>
       )}
+
       <header className="nav-wrap">
         <nav className="nav container">
           <button className="wordmark" onClick={() => scrollTo('top')} aria-label="Go to top">
             <span className="wordmark-mark"><Zap size={15} fill="currentColor" /></span>
             <span>SORIX<span className="wordmark-dot">.</span></span>
           </button>
+
           <div className={`nav-links ${mobileMenuOpen ? 'nav-links-open' : ''}`}>
-            <button onClick={() => scrollTo('work')}>Selected work</button>
+            <button onClick={() => scrollTo('work')}>Selected Work</button>
             <button onClick={() => scrollTo('process')}>Process</button>
+            <button onClick={() => scrollTo('founder')}>About Sonu</button>
             <button onClick={() => scrollTo('contact')}>Contact</button>
+
             {isDemo && (
               <div className="lead-picker">
                 <span>Previewing Concept</span>
@@ -187,6 +196,7 @@ function App() {
               </div>
             )}
           </div>
+
           <button className="nav-cta" onClick={() => scrollTo('contact')}>Let&apos;s talk <ArrowUpRight size={15} /></button>
           <button className="menu-button" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -200,7 +210,9 @@ function App() {
         ) : (
           <AgencyHero onCta={() => scrollTo('contact')} onWork={() => scrollTo('work')} />
         )}
+
         {isDemo && <DemoFeatureStrip lead={lead} />}
+
         <section className="proof-strip">
           <div className="container proof-inner">
             <span className="eyebrow">FEATURED PRODUCTS &amp; CREATOR CONCEPTS</span>
@@ -214,7 +226,8 @@ function App() {
             </div>
           </div>
         </section>
-        <WorkSection onPreview={setModalProject} />
+
+        <WorkSection />
         <ProcessSection />
         <FounderSection />
         <ContactSection isDemo={isDemo} lead={lead} onCta={() => scrollTo('contact')} />
@@ -259,39 +272,6 @@ function App() {
           </a>
         </div>
       )}
-
-      {modalProject && (
-        <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label={`${modalProject.name} preview`}>
-          <div className="preview-modal">
-            <div className="modal-bar">
-              <span className="modal-title">
-                <span className="status-dot" />
-                {modalProject.isFlagship ? 'Live Product Preview' : 'Creator Concept Preview'} · <strong>{modalProject.name}</strong>
-              </span>
-              <div className="modal-actions-top">
-                <a
-                  href={modalProject.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="button button-primary button-sm"
-                >
-                  Visit Live Site <ExternalLink size={14} />
-                </a>
-                <button onClick={() => setModalProject(null)} aria-label="Close preview">
-                  <X size={20} />
-                </button>
-              </div>
-            </div>
-            <iframe title={`${modalProject.name} live preview`} src={modalProject.url} />
-            <div className="modal-footer">
-              <span>Interactive website preview embedded above</span>
-              <a href={modalProject.url} target="_blank" rel="noreferrer">
-                Redirect to {modalProject.url} <ExternalLink size={14} />
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -319,7 +299,7 @@ function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }
               Start a project <ArrowUpRight size={17} />
             </button>
             <button className="text-button" onClick={onWork}>
-              Explore our work <ArrowDownRight size={17} />
+              Explore selected work <ArrowDownRight size={17} />
             </button>
           </div>
           <div className="hero-note">
@@ -333,6 +313,7 @@ function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }
             </span>
           </div>
         </div>
+
         <div className="hero-card-wrap">
           <div className="hero-card-lines" />
           <div className="hero-card">
@@ -371,7 +352,7 @@ function CreatorHero({ lead, onCta }: { lead: Lead; onCta: () => void }) {
       <div className="container creator-content">
         <div className="creator-copy">
           <div className="kicker">
-            <span className="kicker-line" /> {lead.category} · Concept Preview
+            <span className="kicker-line" /> {lead.category} · Concept Proposal
           </div>
           <h1>{lead.heroTitle}</h1>
           <p className="hero-subtitle">{lead.heroSubtitle}</p>
@@ -385,7 +366,7 @@ function CreatorHero({ lead, onCta }: { lead: Lead; onCta: () => void }) {
           </div>
           <div className="creator-proof">
             <Check size={15} />
-            <span>Custom digital experience preview created specifically for {lead.businessName}.</span>
+            <span>Custom website proposal designed specifically for {lead.businessName}.</span>
           </div>
         </div>
         <div className="creator-badge">
@@ -426,7 +407,7 @@ function DemoFeatureStrip({ lead }: { lead: Lead }) {
   );
 }
 
-function WorkSection({ onPreview }: { onPreview: (project: Project) => void }) {
+function WorkSection() {
   const [filter, setFilter] = useState<'all' | 'saas' | 'concept'>('all');
 
   const filteredProjects = useMemo(() => {
@@ -443,7 +424,7 @@ function WorkSection({ onPreview }: { onPreview: (project: Project) => void }) {
           eyebrow="SELECTED WORK &amp; CREATOR CONCEPTS"
           title="Good work gets"
           italic="remembered."
-          description="Click any project to view an interactive live preview or visit the site directly."
+          description="Click any project thumbnail or card to visit the live website directly."
         />
 
         <div className="filter-bar">
@@ -469,66 +450,67 @@ function WorkSection({ onPreview }: { onPreview: (project: Project) => void }) {
 
         <div className="project-grid">
           {filteredProjects.map((project) => (
-            <article
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
               className={`project-card ${project.tone} ${project.isFlagship ? 'flagship-card' : ''}`}
               key={project.name}
             >
-              <div className="project-visual" onClick={() => onPreview(project)}>
-                <span className="project-number">{project.number}</span>
-                {project.isFlagship && <span className="flagship-badge">FLAGSHIP SAAS</span>}
-                <div className="project-shape shape-one" />
-                <div className="project-shape shape-two" />
-                <div className="project-ui">
-                  <span>{project.metric}</span>
-                  <button
-                    className="preview-pill"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onPreview(project);
-                    }}
-                    title="Open Live Preview Modal"
-                  >
-                    <span>Preview</span>
-                    <Play size={12} fill="currentColor" />
-                  </button>
+              <div className="browser-mockup">
+                <div className="browser-header">
+                  <div className="browser-dots">
+                    <span className="dot dot-red" />
+                    <span className="dot dot-yellow" />
+                    <span className="dot dot-green" />
+                  </div>
+                  <div className="browser-url-bar">
+                    <Globe size={11} />
+                    <span>{project.url.replace(/^https?:\/\//, '')}</span>
+                  </div>
+                  {project.isFlagship && <span className="flagship-badge">SAAS</span>}
                 </div>
-                <div className="project-name-display">{project.name}</div>
+
+                <div className="thumbnail-frame">
+                  <img
+                    src={project.thumbnailUrl}
+                    alt={`${project.name} live website screenshot`}
+                    className="card-thumbnail-img"
+                    loading="lazy"
+                    onError={(e) => {
+                      // Fallback background styling if dynamic screenshot generator is offline
+                      (e.currentTarget.style.display = 'none');
+                    }}
+                  />
+                  <div className="thumbnail-fallback">
+                    <span>{project.name}</span>
+                  </div>
+                  <div className="thumbnail-overlay">
+                    <span className="visit-pill">
+                      Visit Site <ExternalLink size={13} />
+                    </span>
+                  </div>
+                </div>
               </div>
 
               <div className="project-info">
                 <div>
                   <div className="project-meta-row">
                     <span className="project-type">{project.type}</span>
+                    <span className="project-metric-tag">{project.metric}</span>
                   </div>
                   <h3>{project.name}</h3>
                   <p>{project.description}</p>
                 </div>
-
-                <div className="card-action-buttons">
-                  <button
-                    className="action-btn action-preview"
-                    onClick={() => onPreview(project)}
-                    title={`Live preview ${project.name}`}
-                  >
-                    <Play size={13} fill="currentColor" />
-                    <span>Live Preview</span>
-                  </button>
-
-                  <a
-                    className="action-btn action-visit"
-                    href={project.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    title={`Redirect to ${project.name} website`}
-                  >
-                    <span>Visit Site</span>
-                    <MoveUpRight size={14} />
-                  </a>
+                <div className="direct-visit-cta">
+                  <span>Visit Website</span>
+                  <ArrowUpRight size={17} />
                 </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
+
         <div className="work-footer">
           <span>Have an idea for a custom product or creator portal?</span>
           <a href="mailto:sorixm149@gmail.com">Ask Sonu directly <ArrowUpRight size={15} /></a>
@@ -584,7 +566,7 @@ function ProcessSection() {
 
 function FounderSection() {
   return (
-    <section className="founder-section">
+    <section className="founder-section" id="founder">
       <div className="container founder-inner">
         <div className="founder-portrait">
           <img src="/images/sonu-avatar.jpg" alt="Sonu M - Founder" className="founder-img" />
