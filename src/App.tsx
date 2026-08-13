@@ -35,7 +35,7 @@ type Project = {
   type: string;
   description: string;
   url: string;
-  thumbnailUrl: string;
+  previewImage: string;
   tone: string;
   metric: string;
   isFlagship?: boolean;
@@ -49,7 +49,7 @@ const projects: Project[] = [
     type: 'SaaS / Utility Tool',
     description: 'An all-in-one browser utility toolkit for modern creators & digital builders. Live product built by Sonu M.',
     url: 'https://browserkit.in/',
-    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fbrowserkit.in%2F?w=1280&h=800',
+    previewImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85',
     tone: 'project-blue',
     metric: 'Live SaaS Product',
     isFlagship: true,
@@ -61,7 +61,7 @@ const projects: Project[] = [
     type: 'Creator Concept Hub',
     description: 'A 3D knowledge & storytelling digital portal crafted for top creators with 5M+ subscribers.',
     url: 'https://abhiandniyu.lovable.app/',
-    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fabhiandniyu.lovable.app%2F?w=1280&h=800',
+    previewImage: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85',
     tone: 'project-sand',
     metric: '5M+ Subscribers',
     category: 'concept',
@@ -72,7 +72,7 @@ const projects: Project[] = [
     type: 'Gaming / Media Portal',
     description: 'An immersive gaming & esports hub with live stream stats for 30M+ gaming fans.',
     url: 'https://totalgamingweb.lovable.app',
-    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Ftotalgamingweb.lovable.app?w=1280&h=800',
+    previewImage: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85',
     tone: 'project-orange',
     metric: '30M+ Gamers',
     category: 'concept',
@@ -83,7 +83,7 @@ const projects: Project[] = [
     type: 'Tech & Education',
     description: 'Minimal, calming interface for tech reviews, buying guides, and educational content for 1M+ learners.',
     url: 'https://gyan-therapy-hub.lovable.app',
-    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fgyan-therapy-hub.lovable.app?w=1280&h=800',
+    previewImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85',
     tone: 'project-green',
     metric: '1M+ Learners',
     category: 'concept',
@@ -94,7 +94,7 @@ const projects: Project[] = [
     type: 'Creator Portfolio',
     description: 'Bold, industrial-themed digital experience for podcasts, pop-culture essays, and media projects.',
     url: 'https://vedantrusty.lovable.app',
-    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Fvedantrusty.lovable.app?w=1280&h=800',
+    previewImage: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1200&q=85',
     tone: 'project-red',
     metric: 'Creator Platform',
     category: 'concept',
@@ -105,7 +105,7 @@ const projects: Project[] = [
     type: 'Glassmorphic Review Hub',
     description: 'High-impact glassmorphic tech review spotlight with interactive unboxing stories.',
     url: 'https://techbar-spotlight-hub.lovable.app',
-    thumbnailUrl: 'https://s0.wp.com/mshots/v1/https%3A%2F%2Ftechbar-spotlight-hub.lovable.app?w=1280&h=800',
+    previewImage: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=85',
     tone: 'project-purple',
     metric: 'Review Platform',
     category: 'concept',
@@ -149,7 +149,7 @@ function App() {
 
   useEffect(() => {
     document.title = isDemo
-      ? `${lead.businessName} | Concept Preview by Sorix Studio`
+      ? `${lead.businessName} | Concept Proposal by Sorix Studio`
       : 'Sorix Studio — Custom Web & Creator Experiences by Sonu M';
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', document.title);
@@ -165,7 +165,7 @@ function App() {
       {isDemo && (
         <div className="demo-banner">
           <Sparkles size={14} />
-          <span>Exclusive website concept tailored for <strong>{lead.businessName}</strong></span>
+          <span>Exclusive website proposal tailored for <strong>{lead.businessName}</strong></span>
           <button onClick={() => scrollTo('contact')}>Talk to Sonu <ArrowUpRight size={14} /></button>
         </div>
       )}
@@ -185,7 +185,7 @@ function App() {
 
             {isDemo && (
               <div className="lead-picker">
-                <span>Previewing Concept</span>
+                <span>Previewing Proposal</span>
                 <ChevronDown size={13} />
                 <div className="lead-menu">
                   {otherLeads.map(([slug, item]) => (
@@ -424,7 +424,7 @@ function WorkSection() {
           eyebrow="SELECTED WORK &amp; CREATOR CONCEPTS"
           title="Good work gets"
           italic="remembered."
-          description="Click any project thumbnail or card to visit the live website directly."
+          description="Click any project thumbnail card to visit the live website directly."
         />
 
         <div className="filter-bar">
@@ -473,18 +473,11 @@ function WorkSection() {
 
                 <div className="thumbnail-frame">
                   <img
-                    src={project.thumbnailUrl}
-                    alt={`${project.name} live website screenshot`}
+                    src={project.previewImage}
+                    alt={`${project.name} website preview`}
                     className="card-thumbnail-img"
                     loading="lazy"
-                    onError={(e) => {
-                      // Fallback background styling if dynamic screenshot generator is offline
-                      (e.currentTarget.style.display = 'none');
-                    }}
                   />
-                  <div className="thumbnail-fallback">
-                    <span>{project.name}</span>
-                  </div>
                   <div className="thumbnail-overlay">
                     <span className="visit-pill">
                       Visit Site <ExternalLink size={13} />
