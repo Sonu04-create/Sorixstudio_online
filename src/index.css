@@ -573,15 +573,44 @@ em {
   overflow: hidden;
 }
 
-.kicker {
-  display: inline-flex;
+.hero-header-row {
+  display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-header-row .kicker {
+  margin-bottom: 0;
+}
+
+.hero-3d-crystal-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-strong);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+}
+
+.hero-3d-canvas {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.crystal-tag {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-2);
-  margin-bottom: 28px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.12em;
 }
 
 .status-pulse-dot {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -289,6 +289,128 @@ function App() {
   );
 }
 
+function Hero3DCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = 240);
+    let height = (canvas.height = 240);
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = (e.clientX - rect.left - width / 2) * 0.005;
+      mouseY = (e.clientY - rect.top - height / 2) * 0.005;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    let angleX = 0;
+    let angleY = 0;
+
+    const phi = (1 + Math.sqrt(5)) / 2;
+    const rawVertices = [
+      [-1, phi, 0], [1, phi, 0], [-1, -phi, 0], [1, -phi, 0],
+      [0, -1, phi], [0, 1, phi], [0, -1, -phi], [0, 1, -phi],
+      [phi, 0, -1], [phi, 0, 1], [-phi, 0, -1], [-phi, 0, 1]
+    ];
+
+    const scale = 65;
+    const vertices = rawVertices.map(([x, y, z]) => {
+      const len = Math.sqrt(x * x + y * y + z * z);
+      return [(x / len) * scale, (y / len) * scale, (z / len) * scale];
+    });
+
+    const edges: [number, number][] = [];
+    for (let i = 0; i < vertices.length; i++) {
+      for (let j = i + 1; j < vertices.length; j++) {
+        const dx = vertices[i][0] - vertices[j][0];
+        const dy = vertices[i][1] - vertices[j][1];
+        const dz = vertices[i][2] - vertices[j][2];
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        if (dist < scale * 1.3) {
+          edges.push([i, j]);
+        }
+      }
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      angleX += 0.008 + mouseY * 0.3;
+      angleY += 0.012 + mouseX * 0.3;
+
+      const cosX = Math.cos(angleX), sinX = Math.sin(angleX);
+      const cosY = Math.cos(angleY), sinY = Math.sin(angleY);
+
+      const projected = vertices.map(([x, y, z]) => {
+        const x1 = x * cosY - z * sinY;
+        const z1 = z * cosY + x * sinY;
+        const y2 = y * cosX - z1 * sinX;
+        const z2 = z1 * cosX + y * sinX;
+
+        const perspective = 260 / (260 + z2);
+        return {
+          x: width / 2 + x1 * perspective,
+          y: height / 2 + y2 * perspective,
+          scale: perspective,
+          z: z2,
+        };
+      });
+
+      edges.forEach(([i, j]) => {
+        const p1 = projected[i];
+        const p2 = projected[j];
+
+        const avgZ = (p1.z + p2.z) / 2;
+        const opacity = Math.max(0.2, Math.min(0.9, (avgZ + scale) / (scale * 2)));
+
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = `rgba(239, 68, 68, ${opacity})`;
+        ctx.lineWidth = 1.8 * p1.scale;
+        ctx.shadowColor = '#ef4444';
+        ctx.shadowBlur = 12;
+        ctx.stroke();
+      });
+
+      projected.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3.5 * p.scale, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#ef4444';
+        ctx.shadowBlur = 14;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <div className="hero-3d-crystal-badge">
+      <canvas ref={canvasRef} className="hero-3d-canvas" />
+      <span className="crystal-tag">INTERACTIVE 3D CORE</span>
+    </div>
+  );
+}
+
 function HeroDeviceMockup({ url, slug, title }: { url: string; slug?: string; title: string }) {
   const displayUrl = slug ? `sorixstudio.online/?id=${slug}` : 'sorixstudio.online/browserkit';
 
@@ -329,9 +451,12 @@ function AgencyHero({ url, onCta, onWork }: { url: string; onCta: () => void; on
       <div className="hero-orb hero-orb-two" />
       <div className="container hero-content">
         <div className="hero-copy">
-          <div className="kicker">
-            <span className="status-pulse-dot" />
-            <span>Available for Select Projects &amp; Creator Portals · 2026</span>
+          <div className="hero-header-row">
+            <div className="kicker">
+              <span className="status-pulse-dot" />
+              <span>Available for Select Projects &amp; Creator Portals · 2026</span>
+            </div>
+            <Hero3DCanvas />
           </div>
           <h1>
             Make your brand<br />
@@ -367,9 +492,12 @@ function CreatorHero({ lead, slug, url, onCta }: { lead: Lead; slug?: string; ur
       <div className="creator-overlay" />
       <div className="container creator-content">
         <div className="creator-copy">
-          <div className="kicker">
-            <span className="status-pulse-dot" />
-            <span>{lead.category} · Concept Proposal</span>
+          <div className="hero-header-row">
+            <div className="kicker">
+              <span className="status-pulse-dot" />
+              <span>{lead.category} · Concept Proposal</span>
+            </div>
+            <Hero3DCanvas />
           </div>
           <h1>{lead.heroTitle}</h1>
           <p className="hero-subtitle">{lead.heroSubtitle}</p>
