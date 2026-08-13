@@ -160,6 +160,10 @@ function App() {
     setMobileMenuOpen(false);
   };
 
+  const previewUrl = activeSlug && activeSlug !== '' && projects.find((p) => p.name.toLowerCase().includes(activeSlug.replace('-', '')))
+    ? projects.find((p) => p.name.toLowerCase().includes(activeSlug.replace('-', '')))!.url
+    : 'https://browserkit.in/';
+
   return (
     <div className={`site-shell ${isDemo ? 'demo-shell' : ''}`} style={accentStyle}>
       {isDemo && (
@@ -172,10 +176,16 @@ function App() {
 
       <header className="nav-wrap">
         <nav className="nav container">
-          <button className="wordmark" onClick={() => scrollTo('top')} aria-label="Go to top">
-            <span className="wordmark-mark"><Zap size={15} fill="currentColor" /></span>
-            <span>SORIX<span className="wordmark-dot">.</span></span>
-          </button>
+          <div className="nav-brand-group">
+            <button className="wordmark" onClick={() => scrollTo('top')} aria-label="Go to top">
+              <span className="wordmark-mark"><Zap size={15} fill="currentColor" /></span>
+              <span>SORIX<span className="wordmark-dot">.</span></span>
+            </button>
+            <div className="nav-founder-badge">
+              <img src="/images/sonu-avatar.jpg" alt="Sonu M" className="nav-avatar" />
+              <span>Sonu M <small>· Founder</small></span>
+            </div>
+          </div>
 
           <div className={`nav-links ${mobileMenuOpen ? 'nav-links-open' : ''}`}>
             <button onClick={() => scrollTo('work')}>Selected Work</button>
@@ -206,9 +216,9 @@ function App() {
 
       <main id="top">
         {isDemo ? (
-          <CreatorHero lead={lead} onCta={() => scrollTo('contact')} />
+          <CreatorHero lead={lead} slug={activeSlug} url={previewUrl} onCta={() => scrollTo('contact')} />
         ) : (
-          <AgencyHero onCta={() => scrollTo('contact')} onWork={() => scrollTo('work')} />
+          <AgencyHero url="https://browserkit.in/" onCta={() => scrollTo('contact')} onWork={() => scrollTo('work')} />
         )}
 
         {isDemo && <DemoFeatureStrip lead={lead} />}
@@ -257,8 +267,11 @@ function App() {
           </div>
         </div>
         <div className="container footer-bottom">
+          <div className="footer-founder-badge">
+            <img src="/images/sonu-avatar.jpg" alt="Sonu M" className="footer-avatar" />
+            <span>Founder &amp; Lead Architect · Sonu M</span>
+          </div>
           <span>© {new Date().getFullYear()} Sorix Studio. Crafted with intent.</span>
-          <span>Founder &amp; lead architect · Sonu M</span>
         </div>
       </footer>
 
@@ -276,7 +289,39 @@ function App() {
   );
 }
 
-function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }) {
+function HeroDeviceMockup({ url, slug, title }: { url: string; slug?: string; title: string }) {
+  const displayUrl = slug ? `sorixstudio.online/?id=${slug}` : 'sorixstudio.online/browserkit';
+
+  return (
+    <div className="hero-device-wrap">
+      <div className="device-glow-orb" />
+      <div className="device-laptop-frame">
+        <div className="laptop-top-bar">
+          <div className="laptop-dots">
+            <span className="dot dot-red" />
+            <span className="dot dot-yellow" />
+            <span className="dot dot-green" />
+          </div>
+          <div className="laptop-address-bar">
+            <Globe size={11} />
+            <span>{displayUrl}</span>
+          </div>
+          <span className="live-status-pill">LIVE PREVIEW</span>
+        </div>
+        <div className="laptop-screen">
+          <iframe
+            src={url}
+            title={`${title} live interactive preview`}
+            className="device-iframe"
+          />
+        </div>
+        <div className="laptop-bottom-notch" />
+      </div>
+    </div>
+  );
+}
+
+function AgencyHero({ url, onCta, onWork }: { url: string; onCta: () => void; onWork: () => void }) {
   return (
     <section className="hero agency-hero">
       <div className="hero-grid" />
@@ -286,7 +331,7 @@ function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }
         <div className="hero-copy">
           <div className="kicker">
             <span className="status-pulse-dot" />
-            <span>Available for Select Projects &amp; Creator Portals · Founded by Sonu M</span>
+            <span>Available for Select Projects &amp; Creator Portals · 2026</span>
           </div>
           <h1>
             Make your brand<br />
@@ -303,39 +348,9 @@ function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }
               Explore selected work <ArrowDownRight size={17} />
             </button>
           </div>
-          <div className="hero-note">
-            <span className="avatar-stack">
-              <img src="/images/sonu-avatar.jpg" alt="Sonu M" className="avatar-img-sm" />
-              <span className="avatar-plus">+</span>
-            </span>
-            <span>
-              Designing high-impact web products<br />
-              <strong>for creators &amp; ambitious founders.</strong>
-            </span>
-          </div>
         </div>
 
-        <div className="hero-card-wrap">
-          <div className="hero-card-lines" />
-          <div className="hero-card">
-            <div className="card-top">
-              <span>01 — SORIX STUDIO</span>
-              <span>IND / GLOBAL</span>
-            </div>
-            <div className="portrait-container">
-              <img src="/images/sonu-avatar.jpg" alt="Sonu M - Founder & Lead Architect" className="portrait-img" />
-              <div className="portrait-glow" />
-              <div className="portrait-tag">
-                SONU M<br />
-                <small>FOUNDER &amp; LEAD ARCHITECT</small>
-              </div>
-            </div>
-            <div className="card-bottom">
-              <span>Strategy · Product · 3D Web</span>
-              <span>Scroll to explore <ArrowDownRight size={14} /></span>
-            </div>
-          </div>
-        </div>
+        <HeroDeviceMockup url={url} title="BrowserKit" />
       </div>
       <div className="scroll-cue">
         <span>Scroll to discover</span>
@@ -345,7 +360,7 @@ function AgencyHero({ onCta, onWork }: { onCta: () => void; onWork: () => void }
   );
 }
 
-function CreatorHero({ lead, onCta }: { lead: Lead; onCta: () => void }) {
+function CreatorHero({ lead, slug, url, onCta }: { lead: Lead; slug?: string; url: string; onCta: () => void }) {
   return (
     <section className="hero creator-hero" style={{ '--hero-image': `url(${lead.heroBg})` } as React.CSSProperties}>
       <div className="creator-image" />
@@ -353,7 +368,8 @@ function CreatorHero({ lead, onCta }: { lead: Lead; onCta: () => void }) {
       <div className="container creator-content">
         <div className="creator-copy">
           <div className="kicker">
-            <span className="kicker-line" /> {lead.category} · Concept Proposal
+            <span className="status-pulse-dot" />
+            <span>{lead.category} · Concept Proposal</span>
           </div>
           <h1>{lead.heroTitle}</h1>
           <p className="hero-subtitle">{lead.heroSubtitle}</p>
@@ -370,10 +386,8 @@ function CreatorHero({ lead, onCta }: { lead: Lead; onCta: () => void }) {
             <span>Custom website proposal designed specifically for {lead.businessName}.</span>
           </div>
         </div>
-        <div className="creator-badge">
-          <Sparkles size={20} />
-          <span>Exclusive Concept<br /><strong>{lead.businessName}</strong></span>
-        </div>
+
+        <HeroDeviceMockup url={url} slug={slug} title={lead.businessName} />
       </div>
       <div className="container creator-meta">
         <span>01 / {lead.businessName.toUpperCase()} CONCEPT PREVIEW</span>
