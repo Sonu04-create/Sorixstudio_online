@@ -1,0 +1,77 @@
+{
+  "abhi-and-niyu": {
+    "category": "Digital Storytelling & Knowledge Hub",
+    "businessName": "Abhi & Niyu",
+    "city": "Mumbai, India",
+    "primaryColor": "#eab308",
+    "heroTitle": "An Immersive 3D World for 5M+ Story Seekers",
+    "heroSubtitle": "Exclusive custom digital portal built to showcase high-impact videos, deep dives, research papers, and merchandise under one sleek roof.",
+    "ctaText": "Explore Concept Experience",
+    "heroBg": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2200&q=85",
+    "features": [
+      "3D Interactive Content Vault",
+      "Direct Video & Podcast Player",
+      "Exclusive Creator Newsletter Hub"
+    ]
+  },
+  "total-gaming": {
+    "category": "Gaming & Live Stream Media Hub",
+    "businessName": "Total Gaming",
+    "city": "India / Global",
+    "primaryColor": "#f97316",
+    "heroTitle": "The Ultimate Portal for 30M+ Gaming Fans",
+    "heroSubtitle": "Real-time stream stats, tournament schedules, esports highlights, and community perks integrated seamlessly.",
+    "ctaText": "Preview Gaming Portal",
+    "heroBg": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=2200&q=85",
+    "features": [
+      "Live Stream Schedule & Alerts",
+      "Esports Tournament Tracker",
+      "VIP Fan Zone & Merch Drops"
+    ]
+  },
+  "gyan-therapy": {
+    "category": "Tech & Educational Media",
+    "businessName": "Gyan Therapy",
+    "city": "India",
+    "primaryColor": "#10b981",
+    "heroTitle": "Minimal, Calming Tech & Knowledge Hub",
+    "heroSubtitle": "Distraction-free interface curated for 1M+ tech enthusiasts looking for honest reviews and smart buying guides.",
+    "ctaText": "Preview Creator Hub",
+    "heroBg": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2200&q=85",
+    "features": [
+      "Interactive Gadget Buying Guide",
+      "Simplified Tech Explainer Library",
+      "Direct Affiliate Deal Spotlight"
+    ]
+  },
+  "vedant-rusty": {
+    "category": "Creator Podcast & Cultural Media",
+    "businessName": "Vedant Rusty",
+    "city": "Delhi, India",
+    "primaryColor": "#ef4444",
+    "heroTitle": "Bold, Industrial Digital Experience for Creators",
+    "heroSubtitle": "High-contrast portfolio showcase for podcasts, pop-culture analysis, and interactive media projects.",
+    "ctaText": "Preview Concept Hub",
+    "heroBg": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=2200&q=85",
+    "features": [
+      "Podcast Episode Directory",
+      "Interactive Essay Reader",
+      "Custom Brand Collaboration Portal"
+    ]
+  },
+  "techbar": {
+    "category": "Tech Reviews & Glassmorphic Spotlight",
+    "businessName": "Techbar Spotlight",
+    "city": "India",
+    "primaryColor": "#8b5cf6",
+    "heroTitle": "Next-Gen Tech Storytelling & Visual Reviews",
+    "heroSubtitle": "Glassmorphic product showcase built to highlight premium unboxings, comparison tools, and video reviews.",
+    "ctaText": "Preview Spotlight Portal",
+    "heroBg": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=2200&q=85",
+    "features": [
+      "3D Product Visualizers",
+      "Side-by-side Spec Comparison",
+      "Exclusive Tech Giveaways Hub"
+    ]
+  }
+}
