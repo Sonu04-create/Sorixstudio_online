@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { GlowingCodeBrackets3D } from './components/GlowingCodeBrackets3D';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -444,6 +445,8 @@ function HeroDeviceMockup({ url, slug, title }: { url: string; slug?: string; ti
 }
 
 function AgencyHero({ url, onCta, onWork }: { url: string; onCta: () => void; onWork: () => void }) {
+  const [heroView, setHeroView] = useState<'3d-brackets' | 'device'>('3d-brackets');
+
   return (
     <section className="hero agency-hero">
       <div className="hero-grid" />
@@ -456,7 +459,7 @@ function AgencyHero({ url, onCta, onWork }: { url: string; onCta: () => void; on
               <span className="status-pulse-dot" />
               <span>Available for Select Projects &amp; Creator Portals · 2026</span>
             </div>
-            <Hero3DCanvas />
+            <GlowingCodeBrackets3D variant="badge" />
           </div>
           <h1>
             Make your brand<br />
@@ -475,7 +478,30 @@ function AgencyHero({ url, onCta, onWork }: { url: string; onCta: () => void; on
           </div>
         </div>
 
-        <HeroDeviceMockup url={url} title="BrowserKit" />
+        <div className="hero-visual-column">
+          <div className="hero-view-toggle">
+            <button
+              className={`toggle-tab ${heroView === '3d-brackets' ? 'active' : ''}`}
+              onClick={() => setHeroView('3d-brackets')}
+            >
+              <Sparkles size={13} />
+              <span>3D Metallic &lt;/&gt;</span>
+            </button>
+            <button
+              className={`toggle-tab ${heroView === 'device' ? 'active' : ''}`}
+              onClick={() => setHeroView('device')}
+            >
+              <Globe size={13} />
+              <span>Browser Preview</span>
+            </button>
+          </div>
+
+          {heroView === '3d-brackets' ? (
+            <GlowingCodeBrackets3D variant="hero-card" />
+          ) : (
+            <HeroDeviceMockup url={url} title="BrowserKit" />
+          )}
+        </div>
       </div>
       <div className="scroll-cue">
         <span>Scroll to discover</span>
@@ -486,6 +512,8 @@ function AgencyHero({ url, onCta, onWork }: { url: string; onCta: () => void; on
 }
 
 function CreatorHero({ lead, slug, url, onCta }: { lead: Lead; slug?: string; url: string; onCta: () => void }) {
+  const [heroView, setHeroView] = useState<'3d-brackets' | 'device'>('3d-brackets');
+
   return (
     <section className="hero creator-hero" style={{ '--hero-image': `url(${lead.heroBg})` } as React.CSSProperties}>
       <div className="creator-image" />
@@ -497,7 +525,7 @@ function CreatorHero({ lead, slug, url, onCta }: { lead: Lead; slug?: string; ur
               <span className="status-pulse-dot" />
               <span>{lead.category} · Concept Proposal</span>
             </div>
-            <Hero3DCanvas />
+            <GlowingCodeBrackets3D variant="badge" accentColor={lead.primaryColor} />
           </div>
           <h1>{lead.heroTitle}</h1>
           <p className="hero-subtitle">{lead.heroSubtitle}</p>
@@ -515,7 +543,30 @@ function CreatorHero({ lead, slug, url, onCta }: { lead: Lead; slug?: string; ur
           </div>
         </div>
 
-        <HeroDeviceMockup url={url} slug={slug} title={lead.businessName} />
+        <div className="hero-visual-column">
+          <div className="hero-view-toggle">
+            <button
+              className={`toggle-tab ${heroView === '3d-brackets' ? 'active' : ''}`}
+              onClick={() => setHeroView('3d-brackets')}
+            >
+              <Sparkles size={13} />
+              <span>3D Metallic &lt;/&gt;</span>
+            </button>
+            <button
+              className={`toggle-tab ${heroView === 'device' ? 'active' : ''}`}
+              onClick={() => setHeroView('device')}
+            >
+              <Globe size={13} />
+              <span>Live Website Preview</span>
+            </button>
+          </div>
+
+          {heroView === '3d-brackets' ? (
+            <GlowingCodeBrackets3D variant="hero-card" accentColor={lead.primaryColor} />
+          ) : (
+            <HeroDeviceMockup url={url} slug={slug} title={lead.businessName} />
+          )}
+        </div>
       </div>
       <div className="container creator-meta">
         <span>01 / {lead.businessName.toUpperCase()} CONCEPT PREVIEW</span>
