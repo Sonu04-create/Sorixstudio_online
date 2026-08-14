@@ -32,15 +32,16 @@ export function GlowingCodeBrackets3D({
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const width = container.clientWidth || (variant === 'badge' ? 240 : 420);
-    const height = container.clientHeight || (variant === 'badge' ? 240 : 420);
+    const isBadge = variant === 'badge';
+    const width = isBadge ? 48 : (container.clientWidth || 420);
+    const height = isBadge ? 48 : (container.clientHeight || 420);
 
     // 1. Scene Setup
     const scene = new THREE.Scene();
     
     // 2. Camera Setup
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.z = variant === 'badge' ? 7.2 : 6.5;
+    camera.position.z = isBadge ? 5.6 : 6.5;
 
     // 3. Renderer Setup
     const renderer = new THREE.WebGLRenderer({
@@ -260,7 +261,7 @@ export function GlowingCodeBrackets3D({
 
     // Handle Resize
     const handleResize = () => {
-      if (!container || !canvas) return;
+      if (!container || !canvas || variant === 'badge') return;
       const newWidth = container.clientWidth;
       const newHeight = container.clientHeight;
       if (newWidth > 0 && newHeight > 0) {
